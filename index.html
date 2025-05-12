@@ -1684,9 +1684,9 @@
             <h3 class="text-white">Subscribe</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, odio beatae accusantium.
             </p>
-            <form action="#">
+            <form id="subscribe-form" action="#">
               <div class="d-flex mb-5">
-                <input type="text" class="form-control rounded-0" placeholder="Email">
+                <input type="email" id="subscribe-email" class="form-control rounded-0" placeholder="Email">
                 <input type="submit" class="btn btn-primary rounded-0" value="Subscribe">
               </div>
             </form>
@@ -1870,6 +1870,22 @@
       console.log(response);
     }
     
+    document.getElementById('subscribe-form').addEventListener('submit', async(e) => {
+      e.preventDefault();// not refresh page
+      let subscribedata = {
+        email: document.getElementById("subscribe-email").value
+      };
+      const reponse = await fetch('http://localhost:3000/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'},
+          body: JSON.stringify(subscribedata)
+      });
+      console.log(reponse);
+      let result = await reponse.json();
+      console.log(result);
+
+    });
   </script>
 
 </body>
