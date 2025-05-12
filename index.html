@@ -1744,7 +1744,9 @@
 
     loadDoc("./json/class_sunday.json", classJSON);
 
-    loadSubject("./json/contact_subject.json");
+    loadSubject("http://localhost:5000/subject");
+    //loadSubject("./json/contact_subject.json");
+    loadSubject("http://localhost:3000/subject");
 
     function loadDoc(url, cFunction) {
       const xhttp = new XMLHttpRequest();
