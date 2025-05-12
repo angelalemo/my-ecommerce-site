@@ -1536,25 +1536,25 @@
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="Contact-Us">Contact Us
-                  <form method="post" data-aos="fade">
+                  <form id="contact-form" data-aos="fade">
                     <div class="form-group row">
                       <div class="col-md-6 mb-3 mb-lg-0">
-                        <input type="text" class="form-control" placeholder="First name">
+                        <input type="text" id="fname" name = "fname" class="form-control" placeholder="First name">
                       </div>
                       <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Last name">
+                        <input type="text" id="lname" name="lname" class="form-control" placeholder="Last name">
                       </div>
                     </div>
                     
                     <div class="form-group row">
                       <div class="col-md-12">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" id="email" name ="email" class="form-control" placeholder="Email">
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <div class="col-md-12">
-                        <select id = "subject-list" class = "form-control">
+                        <select id = "subject-list" name="subject"class = "form-control">
                           <option value = "">Subject</option>
                         </select>
                       </div>
@@ -1562,7 +1562,7 @@
           
                     <div class="form-group row">
                       <div class="col-md-12">
-                        <textarea class="form-control" id="" cols="30" rows="10"
+                        <textarea class="form-control" id="message" name="message" cols="30" rows="10"
                           placeholder="Write your message here."></textarea>
                       </div>
                     </div>
@@ -1570,7 +1570,7 @@
                     <div class="form-group row">
                       <div class="col-md-6">
           
-                        <input type="submit" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
+                        <input type="button" onclick="contactSubmit()" class="btn btn-primary py-3 px-5 btn-block" value="Send Message">
                       </div>
                     </div>
           
@@ -1740,14 +1740,6 @@
 
   <script>
 
-    loadDoc("./XML/class_sunday.xml", classXML);
-
-    loadDoc("./json/class_sunday.json", classJSON);
-
-    loadSubject("http://localhost:5000/subject");
-    //loadSubject("./json/contact_subject.json");
-    loadSubject("http://localhost:3000/subject");
-
     function loadDoc(url, cFunction) {
       const xhttp = new XMLHttpRequest();
       xhttp.onload = function() {cFunction(this);}
@@ -1831,7 +1823,52 @@
       const contact = document.getElementById("contact-head");
       contact.innerHTML = "WoooW";
 
+      loadDoc("./XML/class_sunday.xml", classXML);
+
+      loadDoc("./json/class_sunday.json", classJSON);
+
+      //loadSubject("./json/contact_subject.json");
+
+      loadSubject("http://localhost:3000/api/subject");
+
     };
+
+    function contactSubmit() {
+      document.getElementById('contact-form').submit();
+    }
+
+    //AJAX function
+    const ajax = async () => {
+      const response = fetch(url,{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(conf.data)
+      });
+      const reponse = await response.json();
+      console.log(reponse.status);
+      return reponse;
+      
+    }
+
+    function contactSubmit() {
+      let data = {
+        fname: document.getElementById("fname").value,
+        lname: document.getElementById("lname").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject-list").value,
+        message: document.getElementById("message").value
+      };
+      console.log(data);
+      let conf = {
+        url: "http://localhost:3000/api/contact",
+        data: data
+      }
+      let response = ajax(config);
+      console.log(response);
+    }
     
   </script>
 
