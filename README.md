@@ -2,10 +2,10 @@
 web-tecnology
 
 # Workout Template
-# Description
+# description
 - One Page Layout
 - Responsive Web Design
 - HTML5
 - CSS 3
 - Bootstrap 4
-- jQuery 3
+- jQuery

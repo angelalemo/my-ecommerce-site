@@ -1,8 +1,6 @@
 {
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "exprss": "^0.0.1-security",
-    "upper-case": "^2.0.2"
+    "express": "^5.1.0"
   }
 }
